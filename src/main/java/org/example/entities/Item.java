@@ -1,0 +1,84 @@
+package org.example.entities;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "items")
+public class Item {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String sku; // Código de referencia único del producto (ej: "SKU-98765")
+
+    @Column(nullable = false)
+    private String name; // Nombre del artículo
+
+    private String description; // Descripción detallada
+
+    private int stockQuantity; // Cantidad disponible en stock
+
+    @ManyToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
+    public Item() {
+    }
+
+    public Item(String sku, String name, String description, int stockQuantity) {
+        this.sku = sku;
+        this.name = name;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getSku() {
+        return sku;
+    }
+
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+}
