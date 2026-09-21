@@ -11,8 +11,36 @@ Content-Type: application/json
 {
     "locationCode": "B-02-05",
     "zone": "Zona Sur",
-    "available": true
+    "available": true,
+    "zoneStatus": "LIBRE"
 }
 
 ### 4. Eliminar una ubicación por ID
 DELETE http://localhost:8085/api/locations/2
+
+### --- GESTIÓN DE ITEMS ---
+
+### 5. Obtener todos los items
+GET http://localhost:8085/api/items
+
+### 6. Obtener un item por ID
+GET http://localhost:8085/api/items/1
+
+### 7. Obtener un item por SKU
+GET http://localhost:8085/api/items/sku/ABC-123
+
+### 8. Crear un nuevo item
+POST http://localhost:8085/api/items
+Content-Type: application/json
+
+{
+    "sku": "ABC-123",
+    "name": "Producto de prueba",
+    "description": "Descripción del producto",
+    "stockQuantity": 50,
+    "locationId": 1,
+    "status": "DISPONIBLE"
+}
+
+### 9. Eliminar un item por ID
+DELETE http://localhost:8085/api/items/1
