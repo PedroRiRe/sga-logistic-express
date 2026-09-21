@@ -24,6 +24,11 @@ public class Movement {
     @JoinColumn(name = "target_location_id")
     private Location targetLocation; // Puede ser nulo si es una salida definitiva
 
+    // NUEVO: Relación con el Usuario que ejecuta el movimiento para trazabilidad total
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column(nullable = false)
     private int quantity;
 
@@ -37,10 +42,11 @@ public class Movement {
     public Movement() {
     }
 
-    public Movement(Item item, Location sourceLocation, Location targetLocation, int quantity, MovementType movementType) {
+    public Movement(Item item, Location sourceLocation, Location targetLocation, User user, int quantity, MovementType movementType) {
         this.item = item;
         this.sourceLocation = sourceLocation;
         this.targetLocation = targetLocation;
+        this.user = user;
         this.quantity = quantity;
         this.movementType = movementType;
         this.timestamp = LocalDateTime.now();
@@ -77,6 +83,14 @@ public class Movement {
 
     public void setTargetLocation(Location targetLocation) {
         this.targetLocation = targetLocation;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getQuantity() {
