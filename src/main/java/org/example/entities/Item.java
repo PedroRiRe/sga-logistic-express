@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+import org.example.enums.ItemStatus; // Importar el enum
 
 @Entity
 @Table(name = "items")
@@ -33,6 +34,12 @@ public class Item {
         this.description = description;
         this.stockQuantity = stockQuantity;
     }
+
+    // --- NUEVO CAMPO ENUM ---
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ItemStatus status = ItemStatus.DISPONIBLE; // Valor por defecto opcional
+
 
     public Long getId() {
         return id;
@@ -80,5 +87,13 @@ public class Item {
 
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public ItemStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ItemStatus status) {
+        this.status = status;
     }
 }

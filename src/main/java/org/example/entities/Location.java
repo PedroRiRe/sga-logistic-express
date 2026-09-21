@@ -1,6 +1,7 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
+import org.example.enums.ZoneStatus;
 
 @Entity
 @Table(name = "locations")
@@ -11,21 +12,29 @@ public class Location {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String locationCode; // Ejemplo: "A-01-03"
+    private String locationCode;
 
-    private String zone; // Ejemplo: "North Zone", "Receiving"
+    private String zone;
 
+    // --- CAMBIAMOS A UN SOLO CAMPO 'available' ---
     private boolean available = true;
+
+    // --- CAMPO ENUM ---
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ZoneStatus zoneStatus;
 
     public Location() {
     }
 
-    public Location(String locationCode, String zone) {
+    public Location(String locationCode, String zone, ZoneStatus zoneStatus) {
         this.locationCode = locationCode;
         this.zone = zone;
+        this.zoneStatus = zoneStatus;
         this.available = true;
     }
 
+    // Getters y Setters
     public Long getId() {
         return id;
     }
@@ -56,5 +65,13 @@ public class Location {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public ZoneStatus getZoneStatus() {
+        return zoneStatus;
+    }
+
+    public void setZoneStatus(ZoneStatus zoneStatus) {
+        this.zoneStatus = zoneStatus;
     }
 }
