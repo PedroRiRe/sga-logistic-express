@@ -12,14 +12,18 @@ public class Location {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String locationCode;
+    private String locationCode; // Ej: "001-001-01" corresponde a número de estantería-posición de rack- nivel de altura
 
-    private String zone;
+    private String zone;         // Ej: "PICKING", "ESTANTERIA", "P03"
 
-    // --- CAMBIAMOS A UN SOLO CAMPO 'available' ---
+    private String aisle;        // Pasillo (Ej: "016")
+
+    private Integer rackPosition;// Posición en estantería (Ej: 104)
+
+    private Integer level;       // Altura/Nivel (Ej: 01)
+
     private boolean available = true;
 
-    // --- CAMPO ENUM ---
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ZoneStatus zoneStatus;
@@ -27,14 +31,18 @@ public class Location {
     public Location() {
     }
 
-    public Location(String locationCode, String zone, ZoneStatus zoneStatus) {
+    public Location(String locationCode, String zone, String aisle, Integer rackPosition, Integer level, boolean available, ZoneStatus zoneStatus) {
         this.locationCode = locationCode;
         this.zone = zone;
+        this.aisle = aisle;
+        this.rackPosition = rackPosition;
+        this.level = level;
+        this.available = available;
         this.zoneStatus = zoneStatus;
-        this.available = true;
     }
 
-    // Getters y Setters
+    // --- Getters y Setters ---
+
     public Long getId() {
         return id;
     }
@@ -57,6 +65,30 @@ public class Location {
 
     public void setZone(String zone) {
         this.zone = zone;
+    }
+
+    public String getAisle() {
+        return aisle;
+    }
+
+    public void setAisle(String aisle) {
+        this.aisle = aisle;
+    }
+
+    public Integer getRackPosition() {
+        return rackPosition;
+    }
+
+    public void setRackPosition(Integer rackPosition) {
+        this.rackPosition = rackPosition;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public boolean isAvailable() {
