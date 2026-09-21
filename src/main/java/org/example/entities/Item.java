@@ -1,7 +1,8 @@
 package org.example.entities;
 
 import jakarta.persistence.*;
-import org.example.enums.ItemStatus; // Importar el enum
+import org.example.enums.Company;
+import org.example.enums.ItemStatus;
 
 @Entity
 @Table(name = "items")
@@ -25,21 +26,27 @@ public class Item {
     @JoinColumn(name = "location_id")
     private Location location;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ItemStatus status = ItemStatus.DISPONIBLE; // Valor por defecto
+
+    // NUEVO: Asociación con la compañía propietaria de la mercancía
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Company company;
+
     public Item() {
     }
 
-    public Item(String sku, String name, String description, int stockQuantity) {
+    public Item(String sku, String name, String description, int stockQuantity, Company company) {
         this.sku = sku;
         this.name = name;
         this.description = description;
         this.stockQuantity = stockQuantity;
+        this.company = company;
     }
 
-    // --- NUEVO CAMPO ENUM ---
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ItemStatus status = ItemStatus.DISPONIBLE; // Valor por defecto opcional
-
+    // --- Getters y Setters ---
 
     public Long getId() {
         return id;
@@ -95,5 +102,13 @@ public class Item {
 
     public void setStatus(ItemStatus status) {
         this.status = status;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
