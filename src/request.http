@@ -1,3 +1,5 @@
+### --- GESTIÓN DE UBICACIONES ---
+
 ### 1. Obtener todas las ubicaciones
 GET http://localhost:8085/api/locations
 
@@ -44,3 +46,25 @@ Content-Type: application/json
 
 ### 9. Eliminar un item por ID
 DELETE http://localhost:8085/api/items/1
+
+### --- GESTIÓN DE MOVIMIENTOS ---
+
+### 10. Obtener todos los movimientos
+GET http://localhost:8085/api/movements
+
+### 11. Obtener un movimiento por ID
+GET http://localhost:8085/api/movements/1
+
+### 12. Crear un nuevo movimiento (Entrada de stock)
+POST http://localhost:8085/api/movements
+Content-Type: application/json
+
+{
+    "item": { "id": 1 },
+    "targetLocation": { "id": 7 },
+    "quantity": 5,
+    "movementType": "ENTRADA"
+}
+
+### 13. Eliminar un movimiento por ID
+DELETE http://localhost:8085/api/movements/1
